@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base-template.html}">
+
+    <th:block layout:fragment="content">
+        <div class="inventory_stats row">
+
+            <!-- Left Col -->
+            <div class="col-lg-5 col-md-6 offset-lg-1">
+                <ul class="list-group mb-4">
+                    <li class="list-group-item active">
+                        <h5>Status</h5>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center status-primary">
+                        Files Currently Processing 
+                        <a th:href="@{/listFiles?criteriaCd=FP}">
+                            <span class="badge badge-primary badge-pill">
+                                [[${dailyStats.filesCurrentlyProcessing}]]
+                            </span>
+                        </a>
+                    </li>
+                    <li th:class="'list-group-item d-flex justify-content-between align-items-center status-'+${currentStatus}" 
+                        th:with="currentStatus=${dailyStats.filesFailed < 1 ? 'primary' : 'warn'}">
+                        Files Failed 
+                        <a th:href="@{/errorFiles}">
+                            <span th:class="'badge badge-' + ${currentStatus} + ' badge-pill'">
+                                [[${dailyStats.filesFailed}]]
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="list-group mb-4">
+                    <li class="list-group-item active">
+                        <h5>Inventory Sources</h5>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center status-primary">
+                        Active Inventory Sources 
+                        <a th:href="@{/inventorySources?filter=Active}">
+                            <span class="badge badge-primary badge-pill">
+                                [[${dailyStats.activeSources}]]
+                            </span>
+                        </a>
+                    </li>
+                    <li th:class="'list-group-item d-flex justify-content-between align-items-center status-'+${currentStatus}" 
+                        th:with="currentStatus=${dailyStats.pendingSources == 0 ? 'primary' : 'warn'}">
+                        Pending Inventory Sources 
+                        <a th:href="@{/inventorySources?filter=Pending}">
+                            <span th:class="'badge badge-' + ${currentStatus} + ' badge-pill'">
+                                [[${dailyStats.pendingSources}]]
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            
+            <!-- Right Col -->
+            <div class="col-lg-5 col-md-6">
+                <ul class="list-group mb-4">
+                    <li class="list-group-item active">
+                        <h5>Batch Files</h5>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center status-primary">
+                        Batch Files Expected 
+                        <a th:href="@{/listFiles?criteriaCd=BFE}">
+                            <span class="badge badge-primary badge-pill">
+                                [[${dailyStats.batchFilesExpected}]]
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center status-primary">
+                        Batch Files Received 
+                        <a th:href="@{/listFiles?criteriaCd=BFR}">
+                            <span class="badge badge-primary badge-pill">
+                                [[${dailyStats.batchFilesReceived}]]
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center status-primary">
+                        Batch Files Processed 
+                        <a th:href="@{/listFiles?criteriaCd=BFP}">
+                            <span class="badge badge-primary badge-pill">
+                                [[${dailyStats.batchFilesProcessed}]]
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="list-group">
+                    <li class="list-group-item active">
+                        <h5>Individual Files</h5>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center status-primary">
+                        Individual Files Expected 
+                        <a th:href="@{/listFiles?criteriaCd=IFE}">
+                            <span class="badge badge-primary badge-pill">
+                                [[${dailyStats.individualFilesExpected}]]
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center status-primary">
+                        Individual Files Received 
+                        <a th:href="@{/listFiles?criteriaCd=IFR}">
+                            <span class="badge badge-primary badge-pill">
+                                [[${dailyStats.individualFilesReceived}]]
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center status-primary">
+                        Individual Files Processed 
+                        <a th:href="@{/listFiles?criteriaCd=IFP}">
+                            <span class="badge badge-primary badge-pill">
+                                [[${dailyStats.individualFilesProcessed}]]
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </th:block>
+</html>Thanks,
+Satish

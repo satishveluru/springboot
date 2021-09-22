@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    app.kubernetes.io/name: jib-demo
+    version: v1
+    app.kubernetes.io/version: latest
+  name: jib-demo
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 80
+  selector:
+    app.kubernetes.io/name: jib-demo
+    version: v1
+    app.kubernetes.io/version: latest
+  type: ClusterIP
+---  
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: jib-demo
+    version: v1
+    app.kubernetes.io/version: latest
+  name: jib-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      version: v1
+      app.kubernetes.io/name: jib-demo
+      app.kubernetes.io/version: latest
+  template:
+    metadata:
+      annotations:
+      labels:
+        app.kubernetes.io/name: jib-demo
+        version: v1
+        app.kubernetes.io/version: latest
+    spec:
+      containers:
+      - env:
+        image: jib-demo:latest
+        imagePullPolicy: Never
+        name: jib-demo
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
